@@ -1,16 +1,8 @@
-// import './App.css';
-
-import ReactMicroFrontend from './MFEs/ReactMicroFrontend';
-// import VueMicroFrontend from './MFEs/VueMicroFrontend';
+import { RouterProvider } from 'react-router';
+import { router } from './routes';
 
 function App() {
-  return (
-    <div>
-      <h1>Host React</h1>
-      {/* <VueMicroFrontend /> */}
-      <ReactMicroFrontend />
-    </div>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;

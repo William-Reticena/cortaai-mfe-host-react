@@ -41,5 +41,5 @@ export default function VueMicroFrontend() {
     };
   }, []);
 
-  return <div ref={containerRef} />;
+  return <div ref={containerRef} style={{ minHeight: 200, border: '1px solid blue' }} />;
 }

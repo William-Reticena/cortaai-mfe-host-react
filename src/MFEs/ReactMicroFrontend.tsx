@@ -9,20 +9,14 @@ export default function ReactMicroFrontend() {
 
     async function load() {
       try {
-        console.log('antes do import react remote');
-
         remoteModule = await import('cortaai_mfe_remote_react/bootstrap');
-
-        console.log('remoteModule', remoteModule);
-        console.log('remoteModule.mount', remoteModule?.mount);
-        console.log('remoteModule.default?.mount', remoteModule?.default?.mount);
 
         const mfe = remoteModule?.default ?? remoteModule;
 
         if (!isMounted || !containerRef.current) return;
 
         if (typeof mfe.mount !== 'function') {
-          console.error('mount não encontrado', mfe);
+          console.error('mount não encontrado no módulo remoto', mfe);
           return;
         }
 
@@ -38,8 +32,12 @@ export default function ReactMicroFrontend() {
 
     return () => {
       isMounted = false;
+
       const mfe = remoteModule?.default ?? remoteModule;
-      mfe?.unmount?.();
+
+      if (mfe?.unmount) {
+        mfe.unmount();
+      }
     };
   }, []);
 
