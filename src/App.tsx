@@ -1,5 +1,7 @@
 import { RouterProvider } from 'react-router';
 import { router } from './routes/router';
+import './App.css';
+import 'primereact/resources/themes/saga-orange/theme.css';
 
 function App() {
   return <RouterProvider router={router} />;
