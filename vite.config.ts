@@ -1,11 +1,14 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import federation from '@originjs/vite-plugin-federation';
+import { spaFallback } from './src/configs/plugins/spaFallback';
+import { resolve } from 'path';
 
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
     react(),
+    spaFallback(),
     federation({
       name: 'react-app',
       remotes: {
@@ -20,5 +23,10 @@ export default defineConfig({
   },
   server: {
     port: 9000,
+  },
+  resolve: {
+    alias: {
+      '@': resolve(__dirname, './src'),
+    },
   },
 });
