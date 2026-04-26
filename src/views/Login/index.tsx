@@ -1,24 +1,35 @@
 import { useNavigate } from 'react-router';
+import { useForm, type FieldValues } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 import { Button } from 'primereact/button';
 import { Card } from 'primereact/card';
 import { InputText } from 'primereact/inputtext';
 
-import { Box, Label, Typography, VStack } from '@/shared/common';
+import { Box, Form, Label, Typography, VStack } from '@/shared/common';
+import { useLogin } from '@/hooks/useAuth';
+import { LoginSchema } from '@/schemas/loginSchema';
 
 export function Login() {
   const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(LoginSchema),
+  });
+  const { mutate: login } = useLogin();
 
-  const handleLogin = () => {
-    const email = (document.getElementById('email') as HTMLInputElement)?.value || '';
-
-    localStorage.setItem('token', 'your-token-here');
-
-    if (email.toLowerCase() === 'barber') {
-      navigate('/b');
-    } else {
-      navigate('/c');
-    }
+  const handleOnValidLogin = (data: FieldValues) => {
+    login(
+      { dsEmail: data.email, dsPassword: data.password },
+      {
+        onSuccess: () => {
+          navigate('/');
+        },
+      },
+    );
   };
 
   return (
@@ -30,17 +41,23 @@ export function Login() {
           </Typography>
           <Typography variant='body2'>Acesse sua conta para agendar um horário</Typography>
 
-          <Box className='w-full'>
-            <Label htmlFor='email'>E-mail</Label>
-            <InputText autoComplete='email' id='email' name='email' type='text' className='p-inputtext-sm w-full' placeholder='exemplo@cortaai.com.br' />
-          </Box>
+          <Form className='w-full' onSubmit={handleSubmit(handleOnValidLogin)}>
+            <VStack gap={4}>
+              <Box className='w-full'>
+                <Label htmlFor='email'>E-mail</Label>
+                <InputText autoComplete='email' id='email' type='text' className='p-inputtext-sm w-full' placeholder='exemplo@cortaai.com.br' {...register('email')} />
+                {errors.email && <p className='text-red-500'>{errors.email.message}</p>}
+              </Box>
 
-          <Box className='w-full'>
-            <Label htmlFor='password'>Senha</Label>
-            <InputText autoComplete='current-password' id='password' type='password' name='password' className='p-inputtext-sm w-full!' placeholder='••••••••' />
-          </Box>
+              <Box className='w-full'>
+                <Label htmlFor='password'>Senha</Label>
+                <InputText autoComplete='current-password' id='password' type='password' className='p-inputtext-sm w-full!' placeholder='••••••••' {...register('password')} />
+                {errors.password && <p className='text-red-500'>{errors.password.message}</p>}
+              </Box>
 
-          <Button onClick={handleLogin} className='w-full' label='Entrar' />
+              <Button className='w-full' label='Entrar' type='submit' />
+            </VStack>
+          </Form>
         </VStack>
       </Card>
     </Box>

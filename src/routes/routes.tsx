@@ -1,9 +1,9 @@
-import { Navigate } from 'react-router';
-
 import { ProtectedRoute } from '@/shared/components/ProtectedRoute';
 import ReactMicroFrontend from '@/MFEs/ReactMicroFrontend';
 import VueMicroFrontend from '@/MFEs/VueMicroFrontend';
+
 import { Login } from '@/views/Login';
+import { MainLayout } from '@/views/MainLayout';
 
 export const routes = [
   {
@@ -12,7 +12,7 @@ export const routes = [
   },
   {
     path: '/',
-    element: <Navigate to='/login' replace />,
+    element: <MainLayout />,
   },
   {
     path: '/b/*',
