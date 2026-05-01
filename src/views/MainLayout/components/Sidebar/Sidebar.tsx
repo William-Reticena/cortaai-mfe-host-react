@@ -10,7 +10,11 @@ export function Sidebar() {
 
   return (
     <>
-      <Box className='flex items-center cursor-pointer' style={{ width: '2rem', minHeight: '100%' }} onClick={() => setVisible(true)}>
+      <Box
+        className='fixed left-0 top-0 z-50 flex items-center cursor-pointer'
+        style={{ width: '2rem', height: '100vh' }}
+        onClick={() => setVisible(true)}
+      >
         <ChevronRight className='ml-1' />
       </Box>
 

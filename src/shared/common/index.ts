@@ -5,5 +5,6 @@ export { Form } from './Form/Form';
 export { Header } from './Header/Header';
 export { If } from './If/If';
 export { Label } from './Label/Label';
+export { Main } from './Main/Main';
 export { Typography } from './Typography/Typography';
 export { VStack } from './Stack/VStack/VStack';
