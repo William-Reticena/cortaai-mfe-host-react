@@ -1,5 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 
+import { AuthUtils } from '@/utils/AuthUtils';
 import { AuthApi } from '@/api/AuthApi';
 import type { AuthRequest } from '@/shared/dtos/request';
 
@@ -8,8 +9,7 @@ export const useLogin = () => {
     mutationKey: ['login'],
     mutationFn: (request: AuthRequest) => AuthApi.login(request),
     onSuccess: (data) => {
-      localStorage.setItem('accessToken', data.dsAccessToken);
-      localStorage.setItem('refreshToken', data.dsRefreshToken);
+      AuthUtils.onLoginSuccess(data.dsAccessToken, data.dsRefreshToken);
     },
   });
 };
