@@ -1,9 +1,10 @@
+import { MeResponse } from '@/shared/dtos/response';
 import api from './client';
 
 export class UserApi {
   static async me() {
-    const response = await api.get('/v1/users/me');
+    const response = await api.get<MeResponse>('/v1/users/me');
 
-    return response.data;
+    return new MeResponse(response.data);
   }
 }

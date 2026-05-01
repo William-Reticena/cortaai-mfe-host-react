@@ -7,5 +7,9 @@ export const useLogin = () => {
   return useMutation({
     mutationKey: ['login'],
     mutationFn: (request: AuthRequest) => AuthApi.login(request),
+    onSuccess: (data) => {
+      localStorage.setItem('accessToken', data.dsAccessToken);
+      localStorage.setItem('refreshToken', data.dsRefreshToken);
+    },
   });
 };
