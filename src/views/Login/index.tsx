@@ -56,6 +56,13 @@ export function Login() {
               </Box>
 
               <Button className='w-full' label='Entrar' type='submit' />
+
+              <Typography variant='body2' className='w-full text-center'>
+                Não tem uma conta?{' '}
+                <Box as='span' onClick={() => navigate('/register')} className='text-blue-500 hover:underline cursor-pointer'>
+                  Cadastre-se
+                </Box>
+              </Typography>
             </VStack>
           </Form>
         </VStack>

@@ -5,12 +5,17 @@ import ReactMicroFrontend from '@/MFEs/ReactMicroFrontend';
 import VueMicroFrontend from '@/MFEs/VueMicroFrontend';
 
 import { Login } from '@/views/Login';
+import { Registration } from '@/views/Registration';
 import { MainLayout } from '@/views/MainLayout';
 
 export const routes: RouteObject[] = [
   {
     path: '/login',
     element: <Login />,
+  },
+  {
+    path: '/register',
+    element: <Registration />,
   },
   {
     path: '/',

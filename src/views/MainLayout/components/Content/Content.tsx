@@ -2,13 +2,25 @@ import { useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router';
 
 import { Box, Main } from '@/shared/common';
+import { UserRoleEnum } from '@/shared/enums/UserRoleEnum';
 import type { ContentProps } from './ContentProps';
 
 export function Content({ user }: ContentProps) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    navigate(user.tpRole === 2 ? 'b/' : 'c/');
+    if (user.tpRole === UserRoleEnum.OWNER || user.tpRole === UserRoleEnum.CLIENT) {
+      let path = '';
+      if (user.tpRole === UserRoleEnum.OWNER) {
+        path = 'b/';
+      } else if (user.tpRole === UserRoleEnum.CLIENT) {
+        path = 'c/';
+      }
+
+      navigate(path, { replace: true });
+    } else {
+      navigate('/login', { replace: true });
+    }
   }, [user, navigate]);
 
   return (
