@@ -18,6 +18,9 @@ export default defineConfig({
         cortaai_mfe_remote_vue: 'http://localhost:9001/assets/remoteEntry.js',
         cortaai_mfe_remote_react: 'http://localhost:9002/assets/remoteEntry.js',
       },
+      exposes: {
+        './bridge': './src/shared/bridge/index.ts',
+      },
       shared: ['react', 'react-dom'],
     }),
   ],
@@ -26,6 +29,11 @@ export default defineConfig({
   },
   server: {
     port: 9000,
+    cors: true,
+  },
+  preview: {
+    port: 9000,
+    cors: true,
   },
   resolve: {
     alias: {
